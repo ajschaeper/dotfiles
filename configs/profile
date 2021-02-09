@@ -1,0 +1,49 @@
+# set aliases
+alias ls="ls -G"
+alias la="ls -a"
+alias ll="ls -lth"
+alias lla="ll -a"
+alias l="ls -1"
+alias l1="l" 
+alias l1a="l1 -a" 
+
+# set helper functions
+
+function passgen_b64
+{
+    PASSGEN=$(openssl rand -base64 48)
+    echo -n $PASSGEN | pbcopy
+    export PASSGEN
+}
+
+function passgen_hex
+{
+    PASSGEN=$(openssl rand -hex 32)
+    echo -n $PASSGEN | pbcopy
+    export PASSGEN
+}
+alias passgen=passgen_b64
+
+# git (what's beyond ~/.gitconf)
+alias "gitzip"='git archive --prefix ${PWD##*/}/ HEAD -o ../${PWD##*/}-$(date "+%Y.%m.%d-%H.%M.%S").zip'
+
+# local scripts
+export PATH=$PATH:~/bin
+
+# enable safe multithreading
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+
+# set default editor
+export EDITOR='vim'
+
+# k8s - aliases
+alias k="kubectl"
+alias k-test="k run test-sh-`echo $USER` --rm -i --tty --image ubuntu --namespace customer-dev -- bash"
+export KUBECONFIG=~/.kube/config
+
+# terraform - aliases
+alias tf="terraform"
+
+
+# EOF

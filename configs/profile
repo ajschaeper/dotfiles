@@ -7,6 +7,10 @@ alias l="ls -1"
 alias l1="l" 
 alias l1a="l1 -a" 
 
+alias pdb="python3 -m pdb"
+alias py="python3"
+alias pyi="python3 -i"
+
 # set helper functions
 
 function passgen_b64

@@ -1,5 +1,4 @@
 ### AUTOCOMPLETION
-#autoload -Uz compinit && compinit
 autoload -U +X compinit && compinit
 setopt COMPLETE_ALIASES
 
@@ -32,11 +31,29 @@ source ~/.profile
 autoload -Uz promptinit
 promptinit
 
+# default prompt (off)
 #preview prompts
 #prompt -p
 #prompt elite2 red 
-PROMPT=' %(?.%F{green}👍.%F{red}💩%?)%f %B%F{241}%2~%f%b %F{blue}%#%f ' 
-RPROMPT='%F{241}%*%f'
+
+# git integration
+function git_branch_name()
+{
+  branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+  #repo=$(basename `git rev-parse --show-toplevel`)
+  if [[ $branch == "" ]];
+  then
+    :
+  else
+    echo '- ('$branch')'
+    #echo '- ('$repo/$branch')'
+  fi
+}
+setopt prompt_subst
+
+# custom left and right prompt
+PROMPT=' %(?.%F{green}👍.%F{red}💩 %?)%f %B%F{241}%2~$(git_branch_name)%f%b %F{blue}%#%f ' 
+RPROMPT='%B%F{241}%*%f%b'
 
 # ensure correct colors
 [[ "$COLORTERM" == (24bit|truecolor) || "${terminfo[colors]}" -eq '16777216' ]] || zmodload zsh/nearcolor

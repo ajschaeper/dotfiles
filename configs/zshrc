@@ -1,7 +1,20 @@
 ### AUTOCOMPLETION
-autoload -Uz compinit 
-compinit
+#autoload -Uz compinit && compinit
+autoload -U +X compinit && compinit
 setopt COMPLETE_ALIASES
+
+# globbing case-insensitive
+setopt GLOB_COMPLETE
+
+# autocompletion case-sensitive
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 
+
+# auto-complation definitions from bash
+autoload -U +X bashcompinit && bashcompinit
+[[ -r ~/Projects/autopkg_complete/autopkg ]] && source ~/Projects/autopkg_complete/autopkg 
+
+# correct paths
+setopt CORRECT_ALL
 
 
 ### ALIASES 
